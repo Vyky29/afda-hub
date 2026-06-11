@@ -139,7 +139,7 @@ export default function DashboardPage() {
       <div className="grid gap-6 lg:grid-cols-2">
         <SectionCard
           title="Actividades recientes"
-          description="�ltimas actividades registradas"
+          description="Últimas actividades registradas"
         >
           <div className="space-y-3">
             {recentActivities.map((activity) => (
@@ -170,7 +170,7 @@ export default function DashboardPage() {
 
         <SectionCard
           title="Alertas financieras"
-          description="Tareas que requieren atenci�n"
+          description="Tareas que requieren atención"
         >
           <div className="space-y-3">
             {financeAlerts.map((alert) => (
