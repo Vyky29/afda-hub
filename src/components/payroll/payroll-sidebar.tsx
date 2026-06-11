@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { NAV_ITEMS } from "@/lib/constants";
+import { PAYROLL_NAV } from "@/lib/payroll/constants";
 
-export function Sidebar() {
+export function PayrollSidebar() {
   const pathname = usePathname();
 
   return (
@@ -21,16 +21,18 @@ export function Sidebar() {
           priority
         />
         <div className="flex flex-col">
-          <span className="text-sm font-semibold text-slate-900">Hub</span>
-          <span className="text-[10px] text-slate-400">Gestión interna</span>
+          <span className="text-sm font-semibold text-slate-900">
+            Payroll Tracker
+          </span>
+          <span className="text-[10px] text-slate-400">Gestion de nominas</span>
         </div>
       </div>
 
       <nav className="flex-1 space-y-1 p-3">
-        {NAV_ITEMS.map((item) => {
+        {PAYROLL_NAV.map((item) => {
           const isActive =
-            item.href === "/"
-              ? pathname === "/"
+            item.href === "/payroll"
+              ? pathname === "/payroll"
               : pathname.startsWith(item.href);
           const Icon = item.icon;
 
@@ -59,23 +61,14 @@ export function Sidebar() {
 
       <div className="border-t border-slate-200/80 p-4">
         <Link
-          href="/payroll"
-          className="mb-3 flex items-center gap-2 rounded-xl border border-[#59a5a9]/20 bg-[#59a5a9]/5 px-3 py-2 text-xs font-medium text-[#3d7a7d] hover:bg-[#59a5a9]/10"
+          href="/"
+          className="text-xs text-[#59a5a9] hover:underline"
         >
-          Payroll Tracker
+          Volver a AFDA Hub
         </Link>
-        <p className="text-xs text-slate-400">
-          AFDA - Asociacion para el apoyo al tratamiento de ansiedad y
-          depresion en Aragon
+        <p className="mt-2 text-xs text-slate-400">
+          Modulo restringido — solo administracion autorizada
         </p>
-        <a
-          href="https://asociacionafda.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-1 inline-block text-xs text-[#59a5a9] hover:underline"
-        >
-          asociacionafda.com
-        </a>
       </div>
     </aside>
   );
