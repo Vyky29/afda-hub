@@ -18,6 +18,9 @@
 # production
 /build
 
+# source payroll PDFs (served from public/nominas)
+/Nominas Mayo 2026/
+
 # misc
 .DS_Store
 *.pem

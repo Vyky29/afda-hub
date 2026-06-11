@@ -103,6 +103,29 @@ export interface DashboardStats {
 
 export type ReviewStatus = "reviewed" | "pending_review" | "in_review";
 
+export interface PayrollWorkerRecord {
+  id: string;
+  employeeNum: string;
+  fullName: string;
+  legalName: string;
+  nif: string;
+  month: string;
+  year: number;
+  bruto: number;
+  ss: number;
+  irpf: number;
+  otrosDesc: number;
+  totalDeductions: number;
+  liquido: number;
+  coste: number;
+  payslipFile: string | null;
+  payslipUrl: string | null;
+  email: string;
+  sendStatus: SendStatus;
+  sentDate: string | null;
+  notes: string;
+}
+
 export interface SalaryStructureRecord {
   id: string;
   workerId: string;

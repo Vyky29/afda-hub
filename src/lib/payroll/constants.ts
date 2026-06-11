@@ -1,24 +1,7 @@
-import {
-  BarChart3,
-  LayoutDashboard,
-  Send,
-  Settings,
-  TableProperties,
-  Upload,
-  Users,
-} from "lucide-react";
+import { LayoutDashboard, Settings } from "lucide-react";
 
 export const PAYROLL_NAV = [
-  { title: "Dashboard", href: "/payroll", icon: LayoutDashboard },
-  { title: "Trabajadores", href: "/payroll/trabajadores", icon: Users },
-  {
-    title: "Estructura Salarial",
-    href: "/payroll/estructura-salarial",
-    icon: TableProperties,
-  },
-  { title: "Nominas", href: "/payroll/nominas", icon: Upload },
-  { title: "Envio", href: "/payroll/envio", icon: Send },
-  { title: "Seguimiento", href: "/payroll/seguimiento", icon: BarChart3 },
+  { title: "Nominas Mayo 2026", href: "/payroll", icon: LayoutDashboard },
   { title: "Ajustes", href: "/payroll/ajustes", icon: Settings },
 ] as const;
 

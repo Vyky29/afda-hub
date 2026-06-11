@@ -24,7 +24,7 @@ export function PayrollSidebar() {
           <span className="text-sm font-semibold text-slate-900">
             Payroll Tracker
           </span>
-          <span className="text-[10px] text-slate-400">Gestion de nominas</span>
+          <span className="text-[10px] text-slate-400">Nominas Mayo 2026</span>
         </div>
       </div>
 
