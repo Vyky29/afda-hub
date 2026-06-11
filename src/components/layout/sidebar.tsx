@@ -22,7 +22,7 @@ export function Sidebar() {
         />
         <div className="flex flex-col">
           <span className="text-sm font-semibold text-slate-900">Hub</span>
-          <span className="text-[10px] text-slate-400">Gestión interna</span>
+          <span className="text-[10px] text-slate-400">Gestion administrativa</span>
         </div>
       </div>
 

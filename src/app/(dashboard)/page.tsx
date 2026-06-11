@@ -1,204 +1,102 @@
+import Link from "next/link";
 import {
-  Activity,
   AlertTriangle,
-  Calendar,
-  Clock,
-  DoorOpen,
+  FileText,
+  FolderOpen,
+  Receipt,
+  UserSquare2,
   Users,
-  Wallet,
 } from "lucide-react";
 import { PageHeader } from "@/components/shared/page-header";
-import { SectionCard } from "@/components/shared/section-card";
 import { StatCard } from "@/components/shared/stat-card";
-import { StatusBadge } from "@/components/shared/status-badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  dashboardStats,
-  financeAlerts,
-  recentActivities,
-  roomAvailability,
-  todayAgenda,
-} from "@/lib/mock-data/dashboard";
-import { cn } from "@/lib/utils";
-
-const priorityStyles = {
-  alta: "border-red-200 bg-red-50",
-  media: "border-amber-200 bg-amber-50",
-  baja: "border-slate-200 bg-slate-50",
-};
+  dashboardSummary,
+  monthlyAlerts,
+} from "@/lib/portal/mock-data";
 
 export default function DashboardPage() {
-  const today = new Date().toLocaleDateString("es-ES", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
   return (
     <div className="space-y-8">
       <PageHeader
         title="Dashboard"
-        description={`Resumen del día — ${today}`}
+        description="Gestion interna AFDA  equipo, autonomos, nominas y facturas"
       />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <StatCard
-          title="Sesiones hoy"
-          value={dashboardStats.sessionsToday}
-          icon={Calendar}
-        />
-        <StatCard
-          title="Profesionales activos"
-          value={dashboardStats.activeProfessionals}
+          title="Trabajadores activos"
+          value={dashboardSummary.activeEmployees}
           icon={Users}
         />
         <StatCard
-          title="Despachos ocupados"
-          value={dashboardStats.occupiedRooms}
-          description="de 8 espacios"
-          icon={DoorOpen}
+          title="Autonomos activos"
+          value={dashboardSummary.activeFreelancers}
+          icon={UserSquare2}
         />
         <StatCard
-          title="Actividades hoy"
-          value={dashboardStats.activitiesToday}
-          icon={Activity}
+          title="Nominas pendientes"
+          value={dashboardSummary.pendingPayrolls}
+          icon={FileText}
         />
         <StatCard
-          title="Tareas financieras"
-          value={dashboardStats.pendingFinanceTasks}
-          description="pendientes"
-          icon={Wallet}
+          title="Facturas pendientes"
+          value={dashboardSummary.pendingInvoices}
+          icon={Receipt}
+        />
+        <StatCard
+          title="Documentos pendientes"
+          value={dashboardSummary.pendingDocuments}
+          icon={FolderOpen}
+        />
+        <StatCard
+          title="Alertas del mes"
+          value={dashboardSummary.monthlyAlerts}
+          icon={AlertTriangle}
         />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <SectionCard
-          title="Agenda de hoy"
-          description="Sesiones y actividades programadas"
-        >
-          <div className="space-y-3">
-            {todayAgenda.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-start justify-between gap-4 rounded-xl border border-slate-100 bg-slate-50/50 p-4"
+        <Card className="border-slate-200/80 bg-white shadow-none">
+          <CardHeader>
+            <CardTitle className="text-base">Accesos rapidos</CardTitle>
+          </CardHeader>
+          <CardContent className="grid gap-2 sm:grid-cols-2">
+            {[
+              { href: "/trabajadores", label: "Ver trabajadores" },
+              { href: "/autonomos", label: "Ver autonomos" },
+              { href: "/facturas", label: "Gestionar facturas" },
+              { href: "/documentos", label: "Expedientes" },
+              { href: "/payroll", label: "Nominas Mayo 2026" },
+              { href: "/profesionales", label: "Equipo profesional" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="rounded-xl border border-slate-100 bg-slate-50/50 px-4 py-3 text-sm font-medium text-[#3d7a7d] transition-colors hover:bg-[#59a5a9]/10"
               >
-                <div className="space-y-1">
-                  <p className="text-sm font-medium text-slate-900">
-                    {item.title}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500">
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {item.time} — {item.endTime}
-                    </span>
-                    <span>{item.professional}</span>
-                    <span>{item.room}</span>
-                  </div>
-                </div>
-                <StatusBadge status={item.status} />
-              </div>
+                {link.label}
+              </Link>
             ))}
-          </div>
-        </SectionCard>
+          </CardContent>
+        </Card>
 
-        <SectionCard
-          title="Disponibilidad de despachos"
-          description="Estado actual de los espacios"
-        >
-          <div className="grid gap-3 sm:grid-cols-2">
-            {roomAvailability.map((room) => (
+        <Card className="border-slate-200/80 bg-white shadow-none">
+          <CardHeader>
+            <CardTitle className="text-base">Alertas del mes</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {monthlyAlerts.map((alert) => (
               <div
-                key={room.id}
-                className="rounded-xl border border-slate-100 bg-slate-50/50 p-4"
+                key={alert}
+                className="flex items-start gap-2 rounded-xl border border-slate-100 bg-slate-50/50 px-3 py-2.5 text-sm text-slate-600"
               >
-                <div className="mb-2 flex items-center justify-between">
-                  <p className="text-sm font-medium text-slate-900">
-                    {room.name}
-                  </p>
-                  <StatusBadge status={room.status} />
-                </div>
-                {room.currentProfessional && (
-                  <p className="text-xs text-slate-500">
-                    {room.currentProfessional}
-                  </p>
-                )}
-                {room.currentBooking && (
-                  <p className="text-xs text-slate-400">{room.currentBooking}</p>
-                )}
-                {room.nextBooking && (
-                  <p className="mt-1 text-xs text-[#59a5a9]">
-                    Siguiente: {room.nextBooking}
-                  </p>
-                )}
+                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+                {alert}
               </div>
             ))}
-          </div>
-        </SectionCard>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <SectionCard
-          title="Actividades recientes"
-          description="Últimas actividades registradas"
-        >
-          <div className="space-y-3">
-            {recentActivities.map((activity) => (
-              <div
-                key={activity.id}
-                className="rounded-xl border border-slate-100 bg-slate-50/50 p-4"
-              >
-                <div className="mb-2 flex items-start justify-between gap-2">
-                  <div>
-                    <p className="text-sm font-medium text-slate-900">
-                      {activity.title}
-                    </p>
-                    <p className="text-xs text-slate-400">
-                      {activity.category} — {activity.date}
-                    </p>
-                  </div>
-                  <StatusBadge status={activity.attendance} />
-                </div>
-                <p className="text-xs text-slate-500">{activity.objective}</p>
-                <p className="mt-1 text-xs text-slate-400">
-                  {activity.participants}/{activity.maxParticipants}{" "}
-                  participantes — {activity.professional}
-                </p>
-              </div>
-            ))}
-          </div>
-        </SectionCard>
-
-        <SectionCard
-          title="Alertas financieras"
-          description="Tareas que requieren atención"
-        >
-          <div className="space-y-3">
-            {financeAlerts.map((alert) => (
-              <div
-                key={alert.id}
-                className={cn(
-                  "flex gap-3 rounded-xl border p-4",
-                  priorityStyles[alert.priority]
-                )}
-              >
-                <AlertTriangle
-                  className={cn(
-                    "mt-0.5 h-4 w-4 shrink-0",
-                    alert.priority === "alta" && "text-red-500",
-                    alert.priority === "media" && "text-amber-500",
-                    alert.priority === "baja" && "text-slate-400"
-                  )}
-                />
-                <div>
-                  <p className="text-sm font-medium text-slate-900">
-                    {alert.title}
-                  </p>
-                  <p className="text-xs text-slate-500">{alert.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </SectionCard>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

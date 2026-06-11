@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AFDA Hub — Portal de gestión interna",
+  title: "AFDA Hub — Portal de gestion interna",
   description:
-    "Portal interno de gestión para AFDA. Agenda, despachos, actividades y finanzas.",
+    "Portal interno AFDA. Trabajadores, autonomos, nominas, facturas y documentos.",
 };
 
 export default function RootLayout({
